@@ -1,15 +1,16 @@
 package com.projeto.emprestimo.emprestimo.repository;
 
 import com.projeto.emprestimo.emprestimo.model.Emprestimo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface EmprestimoRepository {
+public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
 
-    boolean existsByEquipamentoId(Long equipamentoId());
+    boolean existsByEquipamentoId(Long equipamentoId);
 
-    List<Emprestimo> findByColaborador(Long colaboradorId0);
+    List<Emprestimo> findByColaborador(Long colaboradorId);
     List<Emprestimo> findByDataDevolucaoIsNullAndDataPrevistaDevolucaoBefore(LocalDate data);
 
 }
