@@ -1,6 +1,7 @@
 package com.projeto.emprestimo.emprestimo.service;
 
 import com.projeto.emprestimo.emprestimo.exception.ConflitoException;
+import com.projeto.emprestimo.emprestimo.exception.NaoEncontradoException;
 import com.projeto.emprestimo.emprestimo.model.Equipamento;
 import com.projeto.emprestimo.emprestimo.model.TipoEquipamento;
 import com.projeto.emprestimo.emprestimo.repository.EmprestimoRepository;
@@ -29,13 +30,13 @@ public class EquipamentoService {
     }
 
     public Equipamento buscar(Long id){
-        return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+        return repository.findById(id).orElseThrow(() -> new NaoEncontradoException
                 "Equipamento não encontrado"));
     }
 
     public Equipamento cadastrar(Equipamento equipamento){
         if (repository.existsByPatrimonio(equipamento.getPatrimonio())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Patrimônio já cadastrado!");
+            throw new ConflitoException"Patrimônio já cadastrado!");
         }
         equipamento.setDisponivel(true); //todo equipamento novo nasce disponível
         return repository.save(equipamento);
@@ -58,13 +59,13 @@ public class EquipamentoService {
 
     public List<Equipamento> listar(TipoEquipamento tipo, Boolean disponivel){
         if(tipo != null && disponivel != null){
-            return repository.findByTipoAndDisponivel(tipo, disponivel)
+            return repository.findByTipoAndDisponivel(tipo, disponivel);
         }
         if(tipo != null){
             return repository.findByTipo(tipo);
         }
         if(disponivel != null){
-            return repository.findByDisponivel(disponivel)
+            return repository.findByDisponivel(disponivel);
         }
         return repository.findAll();
     }

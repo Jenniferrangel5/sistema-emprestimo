@@ -32,5 +32,9 @@ public class Colaborador {
 
     private String logradouro, bairro, cidade, uf;
 
+    public String getEmail() {
+        return email;
+    }
+
 
 }
