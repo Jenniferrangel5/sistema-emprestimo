@@ -36,7 +36,7 @@ public class EquipamentoService {
 
     public Equipamento cadastrar(Equipamento equipamento){
         if (repository.existsByPatrimonio(equipamento.getPatrimonio())){
-            throw new ConflitoException"Patrimônio já cadastrado!");
+            throw new ConflitoException("Patrimônio já cadastrado!");
         }
         equipamento.setDisponivel(true); //todo equipamento novo nasce disponível
         return repository.save(equipamento);
